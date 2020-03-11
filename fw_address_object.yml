@@ -1,0 +1,25 @@
+# Tested working with PANTools 2019-09, Ansible 2.8.5, Python 3.7.4, Galaxy v2.2.3
+
+---
+- name: Add some address objects to the firewall
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+  
+  tasks:
+    - name: Grab the credentials from ansible-vault
+      include_vars: vars.yml
+      no_log: 'yes'
+
+    - name: Create address object
+      panos_address_object:
+        provider: '{{ provider }}'
+        name: 'Test-Addr'
+        value: '1.1.1.1/32'
+        description: 'Test Address Object'
+        commit: no
+        tag: []
+

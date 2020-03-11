@@ -1,0 +1,12 @@
+# Provider is a slightly newer way of speciftying connection info for a NGFW
+# Prior we'd need to set IP, user, pass (etc) in separate lines in each playbook task
+# This way we simply set "provider: {{ provider }}".
+# Name 'provider' corresponds to the name below, it could just as easily be called "letmeonthisfirewall"
+provider:
+  ip_address: '192.168.55.10'
+  username: 'admin'
+  password: 'Paloalto1!'
+
+# This forces Ansible to use a specific Python interpreter. Especially useful on MacOS where Python2 is still main
+# If you are using a virtualenv, then update to e.g. "./env/bin/python3"
+ansible_python_interpreter: "/usr/local/bin/python3"

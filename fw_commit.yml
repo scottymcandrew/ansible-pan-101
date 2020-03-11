@@ -1,0 +1,19 @@
+# Tested working with PSWB 2020-01-10
+
+- name: Demonstrate how to use OP module to execute various op commands on PANW device
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  roles:
+    - role: PaloAltoNetworks.paloaltonetworks
+
+  tasks:
+  - include_vars: 'vars.yml'
+    no_log: 'yes'
+
+  - name: Commit the Candidate Config
+    panos_commit:
+      provider: '{{ provider }}'
+#  To do a Partial Commit, specify the Admin name, otherwise does a Full Commit.
+#      admins: ['admin']

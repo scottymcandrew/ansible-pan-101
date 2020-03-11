@@ -1,0 +1,41 @@
+- name: Add some security rules to the firewall
+  hosts: all
+  connection: local
+  gather_facts: False
+
+  collections:
+    - paloaltonetworks.panos
+    
+  tasks:
+    - name: Add some security rules to the firewall
+      include_vars: vars.yml
+      no_log: 'no'
+
+    - name: Add test rule 1 to the firewall
+      panos_security_rule:
+        provider: '{{ provider }}'
+        rule_name: 'Test Rule 1'
+        description: 'Test Rule 1 Description'
+        source_zone: ['trust']
+        destination_zone: ['untrust']
+        source_ip: ['1.1.1.1']
+        source_user: ['any']
+        destination_ip: ['any']
+        category: ['any']
+        application: ['any']
+        service: ['any']
+        action: 'allow'
+        commit: 'no'
+
+    - name: Add test rule 2 to the firewall
+      panos_security_rule:
+        provider: '{{ provider }}'
+        rule_name: 'Test Rule 2'
+        description: 'Test Rule 2 Description'
+        source_zone: ['trust']
+        source_ip: ['any']
+        destination_zone: ['untrust']
+        destination_ip: ['1.1.1.1']
+        application: ['any']
+        action: 'allow'
+        commit: 'no'
