@@ -1,4 +1,4 @@
-- name: Firewall commit
+- name: Grab API Key
   hosts: localhost
   connection: local
   gather_facts: False
@@ -10,9 +10,12 @@
     - include_vars: 'vars.yml'
       no_log: 'yes'
 
-    - name: Commit pending firewall changes
-      panos_commit:
+    - name: Retrieve API Key
+      panos_api_key:
         provider: '{{ provider }}'
-        # ip_address: '{{ ip_address }}'
-        # username: '{{ username }}'
-        # password: '{{ password }}'
+      register: auth
+
+    - name: Display API Key
+      debug:
+        var: '{{ auth.api_key }}'
+        verbosity: 0

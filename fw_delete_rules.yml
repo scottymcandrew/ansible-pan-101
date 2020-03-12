@@ -1,0 +1,23 @@
+- name: Delete security rules
+  hosts: localhost
+  connection: local
+  gather_facts: False
+
+  collections:
+    - paloaltonetworks.panos
+
+  tasks:
+    - include_vars: 'vars.yml'
+      no_log: 'yes'
+
+    - name: delete test rule 1
+      panos_security_rule:
+        provider: '{{ provider }}'
+        state: 'absent'
+        rule_name: 'Test Rule 1'
+
+    - name: delete test rule 2
+      panos_security_rule:
+        provider: '{{ provider }}'
+        state: 'absent'
+        rule_name: 'Test Rule 2'
